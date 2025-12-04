@@ -1,5 +1,0 @@
-# Sample log extract for v2 test run
-# request_id | event | algorithm | message
-REQ-1 | compute_start | dijkstra | starting compute
-REQ-1 | compute_ok | dijkstra | path=A->C->B cost=4.0
-REQ-2 | validation_err | validation | Graph contains negative edges
