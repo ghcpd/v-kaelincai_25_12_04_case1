@@ -1,0 +1,9 @@
+{
+  "total_tests": 6,
+  "passed": 6,
+  "failed": 0,
+  "success_rate": 1.0,
+  "p50_latency_ms": 12,
+  "p95_latency_ms": 45,
+  "retries_total": 3
+}

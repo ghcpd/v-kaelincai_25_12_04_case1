@@ -1,0 +1,7 @@
+[
+  {"id": "case-1", "when": "2025-12-04T10:00:00Z", "user": "alice"},
+  {"id": "case-2", "when": "2025-12-04T11:00:00Z", "user": "bob"},
+  {"id": "case-3", "when": "2025-12-04T12:00:00Z", "user": "carol"},
+  {"id": "case-4", "when": "2025-12-04T13:00:00Z", "user": "dave"},
+  {"id": "case-5", "when": "2025-12-04T14:00:00Z", "user": "eve"}
+]

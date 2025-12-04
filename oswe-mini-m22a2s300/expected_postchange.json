@@ -1,0 +1,6 @@
+{
+  "success_rate": 1.0,
+  "idempotency_pass": true,
+  "retry_mean": 1.2,
+  "circuit_breaker_tripped": true
+}
