@@ -1,0 +1,30 @@
+{
+  "New York": {
+    "city": "New York",
+    "temperature": 22.5,
+    "humidity": 65,
+    "condition": "Cloudy",
+    "wind_speed": 15.2
+  },
+  "London": {
+    "city": "London",
+    "temperature": 18.0,
+    "humidity": 78,
+    "condition": "Rainy",
+    "wind_speed": 12.5
+  },
+  "Springfield": {
+    "city": "Springfield",
+    "temperature": null,
+    "humidity": 55,
+    "condition": "Sunny",
+    "wind_speed": 8.3
+  },
+  "Tokyo": {
+    "city": "Tokyo",
+    "temperature": 25.0,
+    "humidity": 60,
+    "condition": "Clear",
+    "wind_speed": 10.0
+  }
+}
