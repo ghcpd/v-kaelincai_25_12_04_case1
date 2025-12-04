@@ -1,0 +1,9 @@
+{
+  "cases": [
+    {"id": "healthy", "request_id": "r1", "scenario": "calendar ok"},
+    {"id": "idempotent", "request_id": "r2", "scenario": "duplicate request id"},
+    {"id": "transient", "request_id": "r3", "scenario": "transient failure then success"},
+    {"id": "circuit", "request_id": "r_cb_0", "scenario": "calendar transient errors leading to circuit open"},
+    {"id": "permanent", "request_id": "r_perm", "scenario": "permanent calendar failure -> compensation"}
+  ]
+}
