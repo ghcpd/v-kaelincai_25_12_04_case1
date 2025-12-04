@@ -1,0 +1,23 @@
+{
+  "test_healthy_path": {
+    "duration_ms": 0.7245000451803207,
+    "retries_routing": 0,
+    "retries_booking": 0
+  },
+  "test_idempotent_duplicate": {
+    "duration_ms": 0.42099994607269764,
+    "repeated": true
+  },
+  "test_routing_timeout_breaker": {
+    "duration_ms": 5810.0968999788165,
+    "breaker_state": "open"
+  },
+  "test_booking_fail_once": {
+    "duration_ms": 1759.200000204146,
+    "retries_booking": 1
+  },
+  "test_audit_reconcile": {
+    "duration_ms": 0.20659994333982468,
+    "outbox_dispatched": 1
+  }
+}
