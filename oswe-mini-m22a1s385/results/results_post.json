@@ -1,0 +1,31 @@
+{
+  "tests": [
+    {
+      "name": "reject_negative",
+      "ok": true
+    },
+    {
+      "name": "bellman_positive",
+      "ok": true,
+      "cost": 1.0
+    },
+    {
+      "name": "idempotency",
+      "ok": true
+    },
+    {
+      "name": "retry_outbox",
+      "ok": true,
+      "status": "notified",
+      "attempts": 1
+    },
+    {
+      "name": "compensation",
+      "ok": true
+    },
+    {
+      "name": "reconciliation",
+      "ok": true
+    }
+  ]
+}

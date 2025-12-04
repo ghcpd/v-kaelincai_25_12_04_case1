@@ -1,0 +1,167 @@
+{
+  "test_cases": [
+    {
+      "id": "case_001_digit_7_basic",
+      "description": "Basic prediction of digit 7 from test image",
+      "image_path": "data/test_digit_7.png",
+      "expected_digit": 7,
+      "expected_confidence_min": 0.5,
+      "test_type": "preprocessing_normalization",
+      "preconditions": [
+        "Test image exists",
+        "Model loaded correctly",
+        "No file system errors"
+      ],
+      "expected_preprocessing": {
+        "pixel_min": 0.0,
+        "pixel_max": 1.0,
+        "normalization_applied": true,
+        "validation_passed": true
+      }
+    },
+    {
+      "id": "case_002_digit_3_basic",
+      "description": "Basic prediction of digit 3 from test image",
+      "image_path": "data/test_digit_3.png",
+      "expected_digit": 3,
+      "expected_confidence_min": 0.1,
+      "test_type": "preprocessing_normalization",
+      "preconditions": [
+        "Test image exists",
+        "Model loaded correctly",
+        "No file system errors"
+      ],
+      "expected_preprocessing": {
+        "pixel_min": 0.0,
+        "pixel_max": 1.0,
+        "normalization_applied": true,
+        "validation_passed": true
+      }
+    },
+    {
+      "id": "case_003_idempotency_repeated",
+      "description": "Verify idempotency: same request_id should return identical result",
+      "image_path": "data/test_digit_7.png",
+      "request_id": "req_7a3f8e2b-4c1d-11ec-81d3-0242ac130003",
+      "retry_logic": "request_same_id_twice",
+      "test_type": "idempotency",
+      "expected_behavior": "Second request returns cached result (< 5ms latency)",
+      "preconditions": [
+        "Idempotency store available",
+        "Request ID generation working"
+      ]
+    },
+    {
+      "id": "case_004_retry_transient_error",
+      "description": "Verify retry mechanism: transient I/O error recovers",
+      "image_path": "data/test_digit_7.png",
+      "failure_scenario": "mock_io_fail_count=2",
+      "max_retries": 3,
+      "backoff_ms": [100, 200, 400],
+      "test_type": "retry_with_backoff",
+      "expected_behavior": {
+        "attempt_1": "FAIL",
+        "attempt_2": "FAIL",
+        "attempt_3": "SUCCESS",
+        "total_latency_ms": "300 + inference",
+        "final_status": "success"
+      }
+    },
+    {
+      "id": "case_005_timeout_circuit_breaker",
+      "description": "Verify circuit breaker: prevents cascading failures",
+      "simulation": "5_consecutive_timeouts",
+      "timeout_ms": 2000,
+      "test_type": "circuit_breaker",
+      "expected_behavior": {
+        "requests_1_5": "TimeoutError",
+        "circuit_state_after_5": "OPEN",
+        "request_6": "CircuitBreakerOpenError (fail-fast)",
+        "request_6_latency_ms": "<10"
+      }
+    },
+    {
+      "id": "case_006_batch_predictions",
+      "description": "Verify batch performance meets SLA",
+      "batch_size": 10,
+      "images": [
+        "data/test_digit_7.png",
+        "data/test_digit_7.png",
+        "data/test_digit_7.png",
+        "data/test_digit_7.png",
+        "data/test_digit_7.png",
+        "data/test_digit_3.png",
+        "data/test_digit_3.png",
+        "data/test_digit_3.png",
+        "data/test_digit_3.png",
+        "data/test_digit_3.png"
+      ],
+      "test_type": "performance_baseline",
+      "sla_requirements": {
+        "p50_latency_ms": 100,
+        "p95_latency_ms": 300,
+        "mean_latency_ms": 150
+      }
+    },
+    {
+      "id": "case_007_error_handling_file_not_found",
+      "description": "Verify graceful error handling: missing file",
+      "image_path": "data/nonexistent_file.png",
+      "test_type": "error_handling",
+      "expected_error": {
+        "status": "failed",
+        "error_code": "FILE_NOT_FOUND",
+        "http_status": 404,
+        "message_contains": "does not exist"
+      }
+    },
+    {
+      "id": "case_008_confidence_calibration",
+      "description": "Verify confidence scores are meaningful and calibrated",
+      "test_type": "confidence_scoring",
+      "expectations": {
+        "digit_7_confidence": {
+          "min": 0.5,
+          "max": 1.0
+        },
+        "digit_3_confidence": {
+          "min": 0.1,
+          "max": 1.0
+        },
+        "probabilities_sum": {
+          "min": 0.99,
+          "max": 1.01
+        }
+      }
+    }
+  ],
+  "test_fixtures": {
+    "model_path": "models/mnist_model.npy",
+    "image_paths": [
+      "data/test_digit_7.png",
+      "data/test_digit_3.png"
+    ],
+    "default_timeout_ms": 5000,
+    "default_max_retries": 3,
+    "default_backoff_ms": [100, 200, 400]
+  },
+  "observability_assertions": {
+    "structured_logging": [
+      "All logs must contain request_id",
+      "All logs must have timestamp (ISO 8601)",
+      "Error logs must contain error_code and error_message",
+      "Success logs must contain prediction and confidence"
+    ],
+    "audit_trail": [
+      "Every prediction must create one audit entry",
+      "Audit entry must match prediction result",
+      "No duplicate audit entries for same request_id"
+    ],
+    "metrics": [
+      "latency_ms: All predictions recorded",
+      "error_rate: Errors categorized by error_code",
+      "retry_count: Retries tracked per request",
+      "cache_hits: Idempotent requests tracked"
+    ]
+  }
+}
