@@ -1,0 +1,33 @@
+[
+  {
+    "id": "healthy_01",
+    "graph": {
+      "edges": [
+        {"source": "A", "target": "C", "weight": 2},
+        {"source": "C", "target": "B", "weight": 2}
+      ]
+    },
+    "start": "A",
+    "goal": "B",
+    "allow_negative": false,
+    "expected_path": ["A", "C", "B"],
+    "expected_cost": 4.0
+  },
+  {
+    "id": "negative_01",
+    "graph": "data/graph_negative_weight.json",
+    "start": "A",
+    "goal": "B",
+    "allow_negative": false,
+    "expect_error": "negative"
+  },
+  {
+    "id": "negative_02",
+    "graph": "data/graph_negative_weight.json",
+    "start": "A",
+    "goal": "B",
+    "allow_negative": true,
+    "expected_path": ["A", "C", "D", "F", "B"],
+    "expected_cost": 1.0
+  }
+]
