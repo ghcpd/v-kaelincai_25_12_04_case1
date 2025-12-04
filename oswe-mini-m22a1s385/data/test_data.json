@@ -1,0 +1,9 @@
+{
+  "cases": [
+    {"name": "negative_edge_graph", "edges": [["A","B",5],["A","C",2],["C","D",1],["D","F",-3],["F","B",1],["A","E",1],["E","B",6]]},
+    {"name": "positive_graph", "edges": [["A","B",5],["A","C",2],["C","B",2]]},
+    {"name": "no_path", "edges": [["A","C",5],["C","D",1]]},
+    {"name": "negative_cycle", "edges": [["A","B",1],["B","C",-2],["C","A",0]]},
+    {"name": "large_path", "edges": [["A","B",1],["B","C",1],["C","D",1],["D","E",1],["E","F",1]]}
+  ]
+}
