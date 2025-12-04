@@ -1,0 +1,69 @@
+{
+  "test_data": {
+    "graph_safe": {
+      "version": "1.0",
+      "metadata": {
+        "name": "Safe Graph (No Negative Weights)",
+        "description": "Simple directed graph suitable for Dijkstra",
+        "created_at": "2025-01-04T12:00:00Z"
+      },
+      "edges": [
+        {"source": "A", "target": "B", "weight": 5},
+        {"source": "A", "target": "C", "weight": 2},
+        {"source": "C", "target": "D", "weight": 1},
+        {"source": "D", "target": "B", "weight": 1},
+        {"source": "A", "target": "E", "weight": 1},
+        {"source": "E", "target": "B", "weight": 6}
+      ]
+    },
+    "graph_negative_weight": {
+      "version": "1.0",
+      "metadata": {
+        "name": "Graph with Negative Weight",
+        "description": "Directed graph containing a negative-weight edge D→F",
+        "created_at": "2025-01-04T12:00:00Z"
+      },
+      "edges": [
+        {"source": "A", "target": "B", "weight": 5},
+        {"source": "A", "target": "C", "weight": 2},
+        {"source": "C", "target": "D", "weight": 1},
+        {"source": "D", "target": "F", "weight": -3},
+        {"source": "F", "target": "B", "weight": 1},
+        {"source": "A", "target": "E", "weight": 1},
+        {"source": "E", "target": "B", "weight": 6}
+      ]
+    },
+    "graph_large": {
+      "version": "1.0",
+      "metadata": {
+        "name": "Large Graph",
+        "description": "100 nodes, dense connectivity for timeout testing",
+        "created_at": "2025-01-04T12:00:00Z"
+      },
+      "edges": []
+    },
+    "expected_results": {
+      "test_1_happy_path": {
+        "start": "A",
+        "goal": "B",
+        "expected_path": ["A", "C", "D", "B"],
+        "expected_cost": 4,
+        "description": "Optimal path on safe graph"
+      },
+      "test_2_idempotency": {
+        "start": "A",
+        "goal": "B",
+        "expected_path": ["A", "C", "D", "B"],
+        "expected_cost": 4,
+        "description": "Duplicate request ID should return cached result"
+      },
+      "test_5_validation": {
+        "start": "Z",
+        "goal": "B",
+        "should_fail": true,
+        "error_code": "VALIDATION_ERROR",
+        "description": "Non-existent start node"
+      }
+    }
+  }
+}
