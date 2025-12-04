@@ -1,0 +1,28 @@
+[
+  {
+    "id": "case_success",
+    "payload": {"user": "alice", "time": "2025-12-05T10:00:00Z"},
+    "mode": "ok"
+  },
+  {
+    "id": "case_idempotent",
+    "payload": {"user": "bob", "time": "2025-12-05T11:00:00Z"},
+    "mode": "ok",
+    "idempotency_key": "idem-bob-1"
+  },
+  {
+    "id": "case_delayed",
+    "payload": {"user": "carol", "time": "2025-12-05T12:00:00Z"},
+    "mode": "delayed"
+  },
+  {
+    "id": "case_downstream_fail",
+    "payload": {"user": "dan", "time": "2025-12-05T13:00:00Z"},
+    "mode": "fail"
+  },
+  {
+    "id": "case_flaky",
+    "payload": {"user": "eve", "time": "2025-12-05T14:00:00Z"},
+    "mode": "flaky"
+  }
+]
