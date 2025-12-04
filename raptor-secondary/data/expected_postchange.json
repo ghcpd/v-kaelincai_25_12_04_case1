@@ -1,0 +1,21 @@
+{
+  "healthy_path": {
+    "state": "CONFIRMED",
+    "route_cost": 1.0,
+    "repeated": false
+  },
+  "idempotent_duplicate": {
+    "state": "CONFIRMED",
+    "repeated": true
+  },
+  "routing_timeout_breaker": {
+    "state": "FAILED"
+  },
+  "booking_fail_once": {
+    "state": "CONFIRMED"
+  },
+  "audit_reconcile": {
+    "state": "CONFIRMED",
+    "outbox_dispatched": true
+  }
+}

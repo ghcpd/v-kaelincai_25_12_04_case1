@@ -1,0 +1,65 @@
+[
+  {
+    "name": "healthy_path",
+    "idempotency_key": "key-healthy",
+    "scenario": "immediate",
+    "edges": [
+      {"source": "A", "target": "B", "weight": 5},
+      {"source": "A", "target": "C", "weight": 2},
+      {"source": "C", "target": "D", "weight": 1},
+      {"source": "D", "target": "F", "weight": -3},
+      {"source": "F", "target": "B", "weight": 1}
+    ],
+    "source": "A",
+    "target": "B",
+    "expected_state": "CONFIRMED"
+  },
+  {
+    "name": "idempotent_duplicate",
+    "idempotency_key": "key-dup",
+    "scenario": "immediate",
+    "edges": [
+      {"source": "A", "target": "B", "weight": 5},
+      {"source": "A", "target": "C", "weight": 2},
+      {"source": "C", "target": "D", "weight": 1},
+      {"source": "D", "target": "F", "weight": -3},
+      {"source": "F", "target": "B", "weight": 1}
+    ],
+    "source": "A",
+    "target": "B",
+    "expected_state": "CONFIRMED"
+  },
+  {
+    "name": "routing_timeout_breaker",
+    "idempotency_key": "key-routing-timeout",
+    "scenario": "routing_slow",
+    "edges": [
+      {"source": "A", "target": "B", "weight": 1}
+    ],
+    "source": "A",
+    "target": "B",
+    "expected_state": "FAILED"
+  },
+  {
+    "name": "booking_fail_once",
+    "idempotency_key": "key-booking-fail",
+    "scenario": "booking_fail_once",
+    "edges": [
+      {"source": "A", "target": "B", "weight": 1}
+    ],
+    "source": "A",
+    "target": "B",
+    "expected_state": "CONFIRMED"
+  },
+  {
+    "name": "audit_reconcile",
+    "idempotency_key": "key-audit",
+    "scenario": "immediate",
+    "edges": [
+      {"source": "A", "target": "B", "weight": 1}
+    ],
+    "source": "A",
+    "target": "B",
+    "expected_state": "CONFIRMED"
+  }
+]
