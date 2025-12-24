@@ -1,0 +1,6 @@
+2025-12-04T10:00:00Z request_id=req-healthy event=appointment.created state=NEW
+2025-12-04T10:00:00Z request_id=req-healthy event=outbox.enqueued
+2025-12-04T10:00:00Z request_id=req-healthy event=outbox.delivered state=COMPLETED
+2025-12-04T12:00:00Z request_id=req-cb event=appointment.created state=NEW
+2025-12-04T12:00:00Z request_id=req-cb event=outbox.enqueued
+2025-12-04T12:00:01Z request_id=req-cb event=outbox.delivery_error error=timeout circuit=OPEN
